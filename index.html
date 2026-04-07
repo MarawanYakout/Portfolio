@@ -6,9 +6,6 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="description" content="Marawan Yakout – Computer scientist and AI/ML researcher at the University of London and Machine Learning Research Head at LiveAI.">
 
-        <!-- Preconnect to CDN for UnicornStudio script -->
-        <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
         <style>
             body {
                 margin: 0;
@@ -27,15 +24,16 @@
                 overflow: hidden;
             }
 
-            /* UnicornStudio container fills the hero */
-            #hero-wrapper [data-us-project] {
+            /* Video fills the hero like a background */
+            #hero-video {
                 position: absolute;
                 inset: 0;
-                width: 100% !important;
-                height: 100% !important;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
 
-            /* Content sits on top of the animation */
+            /* Content sits on top of the video */
             .hero-content {
                 position: absolute;
                 inset: 0;
@@ -45,7 +43,6 @@
                 justify-content: center;
                 text-align: center;
                 padding: 24px;
-                /* subtle dark overlay so text stays readable */
                 background: rgba(0, 0, 0, 0.35);
                 color: #fff;
             }
@@ -195,13 +192,28 @@
                     display: inline-block;
                 }
             }
+
+            /* Respect reduced-motion preference – pause the video */
+            @media (prefers-reduced-motion: reduce) {
+                #hero-video {
+                    animation: none;
+                }
+            }
         </style>
     </head>
     <body>
 
-        <!-- ── UnicornStudio Hero ── -->
+        <!-- ── Video Hero ── -->
         <div id="hero-wrapper">
-            <div style="width: 1440px; height: 900px" data-us-project="qTIxDH3u15KmQuXwy02C"></div>
+            <video
+                id="hero-video"
+                src="strand_remix.webm"
+                autoplay
+                loop
+                muted
+                playsinline
+                aria-hidden="true"
+            ></video>
 
             <div class="hero-content">
                 <h1>Marawan Yakout</h1>
@@ -211,9 +223,6 @@
                 <span class="scroll-hint">↓ scroll</span>
             </div>
         </div>
-
-        <!-- UnicornStudio loader script -->
-        <script type="text/javascript">!function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.6/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();</script>
 
         <!-- Right-side navigation -->
         <nav class="side-nav" aria-label="Main navigation">
