@@ -5,6 +5,10 @@
         <title>Marawan Yakout – AI & CS</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="description" content="Marawan Yakout – Computer scientist and AI/ML researcher at the University of London and Machine Learning Research Head at LiveAI.">
+
+        <!-- Preconnect to CDN for UnicornStudio script -->
+        <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
         <style>
             body {
                 margin: 0;
@@ -14,28 +18,77 @@
                 color: #111;
             }
 
+            /* ── Hero Section ── */
+            #hero-wrapper {
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                min-height: 500px;
+                overflow: hidden;
+            }
+
+            /* UnicornStudio container fills the hero */
+            #hero-wrapper [data-us-project] {
+                position: absolute;
+                inset: 0;
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            /* Content sits on top of the animation */
+            .hero-content {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 24px;
+                /* subtle dark overlay so text stays readable */
+                background: rgba(0, 0, 0, 0.35);
+                color: #fff;
+            }
+
+            .hero-content h1 {
+                margin: 0 0 8px;
+                font-size: clamp(1.8rem, 5vw, 3.2rem);
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            }
+
+            .hero-content .tagline {
+                margin: 0;
+                font-size: clamp(0.9rem, 2vw, 1.1rem);
+                color: rgba(255, 255, 255, 0.85);
+                max-width: 560px;
+            }
+
+            .hero-content .scroll-hint {
+                margin-top: 32px;
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.6);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                animation: bounce 2s infinite;
+            }
+
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50%       { transform: translateY(6px); }
+            }
+
+            /* ── Main page content ── */
             .page {
                 max-width: 760px;
                 margin: 0 auto;
                 padding: 24px 16px 40px;
                 padding-right: 160px;
-                /* make room for right-side nav */
-            }
-
-            h1 {
-                margin: 0 0 4px;
-                font-size: 1.9rem;
             }
 
             h2 {
                 margin: 20px 0 6px;
                 font-size: 1.2rem;
-            }
-
-            .tagline {
-                margin: 0 0 16px;
-                color: #555;
-                font-size: 0.95rem;
             }
 
             a {
@@ -58,7 +111,7 @@
                 font-size: 0.8rem;
             }
 
-            /* Profile image styling - larger, centered, rectangular */
+            /* Profile image */
             .avatar {
                 display: block;
                 width: 720px;
@@ -79,6 +132,7 @@
                 padding: 8px 10px;
                 min-width: 110px;
                 font-size: 0.9rem;
+                z-index: 100;
             }
 
             .side-nav-title {
@@ -126,7 +180,6 @@
             @media (max-width: 720px) {
                 .page {
                     padding-right: 16px;
-                    /* remove reserved space on small screens */
                 }
 
                 .side-nav {
@@ -145,6 +198,23 @@
         </style>
     </head>
     <body>
+
+        <!-- ── UnicornStudio Hero ── -->
+        <div id="hero-wrapper">
+            <div style="width: 1440px; height: 900px" data-us-project="qTIxDH3u15KmQuXwy02C"></div>
+
+            <div class="hero-content">
+                <h1>Marawan Yakout</h1>
+                <p class="tagline">
+                    Computer scientist @ University of London · ML Research Intern @ DeepKapha Labs
+                </p>
+                <span class="scroll-hint">↓ scroll</span>
+            </div>
+        </div>
+
+        <!-- UnicornStudio loader script -->
+        <script type="text/javascript">!function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.6/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();</script>
+
         <!-- Right-side navigation -->
         <nav class="side-nav" aria-label="Main navigation">
             <p class="side-nav-title">Navigate</p>
@@ -156,12 +226,6 @@
 
         <div class="page">
             <header>
-                <h1>Marawan Yakout</h1>
-                <p class="tagline">
-                    Computer scientist @ University of London · Machine Learning Research Intern @ DeepKapha Labs
-                </p>
-
-                <!-- Profile picture now under the tagline, centered and rectangular -->
                 <img src="assets\picture1.jpg" alt="Photo of Marawan Yakout" class="avatar">
             </header>
 
@@ -179,32 +243,33 @@
                     <li>High‑performance C++ and Python systems for trading and large‑scale experiments.</li>
                     <li>Applied AI research, model evaluation, and educational content.</li>
                 </ul>
+            </section>
+
             <section id="projects">
-            <h2>Recent Work</h2>
-            <ul>
-                <li>
-                    <strong>SERWED</strong>
-                    <span class="project-tag">Diffusion Model • Satellite Imagery • Conditional Generation</span>
-                    <br>
-                    <small>
-                        <a href="https://github.com/MarawanYakout/SERWED" target="_blank" rel="noopener noreferrer">
-                            GitHub: https://github.com/MarawanYakout/SERWED
-                        </a>
-                    </small>
-                    <p>
-                        A context-conditioned Denoising Diffusion Probabilistic Model (DDPM) for generating and analyzing satellite cloud imagery.
-                        Trained on a NASA dataset containing high-resolution images with associated timestamps, wind-speed annotations, and learned embeddings.
-                        Supports conditional generation (e.g., given wind speed or timestamp), robustness experiments, and rapid prototyping on small 16×16 images with straightforward scaling to larger resolutions.
-                    </p>
-        
-                    <!-- Project Stats Badge Section -->
-                    <div style="margin-top: 12px; padding: 10px; background-color: #ecfdf5; border-left: 4px solid #10b981; border-radius: 6px; font-size: 0.9em;">
-                        <strong style="color: #065f46;">Project Status:</strong> <span style="color: #059669; font-weight: bold;">Completed - on arXiv / under review</span><br><br>
-                        <em style="color: #059669;">Paper and full quantitative results link soon to be added</em>
-                    </div>
-                </li>
-            </ul>
-        </section>
+                <h2>Recent Work</h2>
+                <ul>
+                    <li>
+                        <strong>SERWED</strong>
+                        <span class="project-tag">Diffusion Model • Satellite Imagery • Conditional Generation</span>
+                        <br>
+                        <small>
+                            <a href="https://github.com/MarawanYakout/SERWED" target="_blank" rel="noopener noreferrer">
+                                GitHub: https://github.com/MarawanYakout/SERWED
+                            </a>
+                        </small>
+                        <p>
+                            A context-conditioned Denoising Diffusion Probabilistic Model (DDPM) for generating and analyzing satellite cloud imagery.
+                            Trained on a NASA dataset containing high-resolution images with associated timestamps, wind-speed annotations, and learned embeddings.
+                            Supports conditional generation (e.g., given wind speed or timestamp), robustness experiments, and rapid prototyping on small 16×16 images with straightforward scaling to larger resolutions.
+                        </p>
+
+                        <div style="margin-top: 12px; padding: 10px; background-color: #ecfdf5; border-left: 4px solid #10b981; border-radius: 6px; font-size: 0.9em;">
+                            <strong style="color: #065f46;">Project Status:</strong> <span style="color: #059669; font-weight: bold;">Completed - on arXiv / under review</span><br><br>
+                            <em style="color: #059669;">Paper and full quantitative results link soon to be added</em>
+                        </div>
+                    </li>
+                </ul>
+            </section>
 
             <section id="contact">
                 <h2>Contact</h2>
@@ -222,10 +287,6 @@
                 <small>Loading Pages on this Website is Fast, try it out ;)</small>
             </footer>
         </div>
+
     </body>
-
 </html>
-
-
-
-
