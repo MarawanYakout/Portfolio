@@ -15,8 +15,8 @@
                 color: #111;
             }
 
-            /* ── Hero Section ── */
-            #hero-wrapper {
+            /* ── Shared video section styles ── */
+            .video-section {
                 position: relative;
                 width: 100%;
                 height: 100vh;
@@ -24,8 +24,7 @@
                 overflow: hidden;
             }
 
-            /* Video fills the hero like a background */
-            #hero-video {
+            .video-section video {
                 position: absolute;
                 inset: 0;
                 width: 100%;
@@ -33,8 +32,8 @@
                 object-fit: cover;
             }
 
-            /* Content sits on top of the video */
-            .hero-content {
+            /* Overlay keeps text readable over any video */
+            .video-overlay {
                 position: absolute;
                 inset: 0;
                 display: flex;
@@ -47,21 +46,21 @@
                 color: #fff;
             }
 
-            .hero-content h1 {
+            .video-overlay h1 {
                 margin: 0 0 8px;
                 font-size: clamp(1.8rem, 5vw, 3.2rem);
                 font-weight: 700;
                 letter-spacing: -0.5px;
             }
 
-            .hero-content .tagline {
+            .video-overlay .tagline {
                 margin: 0;
                 font-size: clamp(0.9rem, 2vw, 1.1rem);
                 color: rgba(255, 255, 255, 0.85);
                 max-width: 560px;
             }
 
-            .hero-content .scroll-hint {
+            .video-overlay .scroll-hint {
                 margin-top: 32px;
                 font-size: 0.8rem;
                 color: rgba(255, 255, 255, 0.6);
@@ -193,32 +192,34 @@
                 }
             }
 
-            /* Respect reduced-motion preference – pause the video */
             @media (prefers-reduced-motion: reduce) {
-                #hero-video {
-                    animation: none;
+                .video-section video {
+                    display: none;
                 }
             }
         </style>
     </head>
     <body>
 
-        <!-- ── Video Hero ── -->
-        <div id="hero-wrapper">
-            <video
-                id="hero-video"
-                src="strand_remix.webm"
-                autoplay
-                loop
-                muted
-                playsinline
-                aria-hidden="true"
-            ></video>
-
-            <div class="hero-content">
+        <!-- ── 1. strand_remix hero ── -->
+        <div class="video-section">
+            <video src="strand_remix.webm" autoplay loop muted playsinline aria-hidden="true"></video>
+            <div class="video-overlay">
                 <h1>Marawan Yakout</h1>
                 <p class="tagline">
-                    Computer scientist @ University of London · ML Research Intern @ DeepKapha Labs
+                    Computer scientist @ University of London &middot; ML Research Intern @ DeepKapha Labs
+                </p>
+                <span class="scroll-hint">↓ scroll</span>
+            </div>
+        </div>
+
+        <!-- ── 2. huly_laser_remix section ── -->
+        <div class="video-section">
+            <video src="huly_laser_remix.webm" autoplay loop muted playsinline aria-hidden="true"></video>
+            <div class="video-overlay">
+                <h1>Marawan Yakout</h1>
+                <p class="tagline">
+                    Computer scientist @ University of London &middot; ML Research Intern @ DeepKapha Labs
                 </p>
                 <span class="scroll-hint">↓ scroll</span>
             </div>
@@ -233,6 +234,7 @@
             <a href="contact.html">Contact</a>
         </nav>
 
+        <!-- ── Main content ── -->
         <div class="page">
             <header>
                 <img src="assets\picture1.jpg" alt="Photo of Marawan Yakout" class="avatar">
@@ -295,6 +297,11 @@
             <footer>
                 <small>Loading Pages on this Website is Fast, try it out ;)</small>
             </footer>
+        </div>
+
+        <!-- ── 3. components_remix closing section ── -->
+        <div class="video-section">
+            <video src="components_remix.webm" autoplay loop muted playsinline aria-hidden="true"></video>
         </div>
 
     </body>
