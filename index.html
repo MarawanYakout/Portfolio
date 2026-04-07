@@ -32,7 +32,7 @@
                 object-fit: cover;
             }
 
-            /* Overlay keeps text readable over any video */
+            /* Generic overlay */
             .video-overlay {
                 position: absolute;
                 inset: 0;
@@ -74,6 +74,79 @@
                 50%       { transform: translateY(6px); }
             }
 
+            /* ── About overlay (huly_laser section) ── */
+            .about-overlay {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 40px 24px;
+                background: rgba(0, 0, 0, 0.50);
+                color: #fff;
+            }
+
+            .about-card {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+                max-width: 860px;
+                width: 100%;
+            }
+
+            .about-card img {
+                width: 220px;
+                height: 280px;
+                object-fit: cover;
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+                flex-shrink: 0;
+            }
+
+            .about-text h2 {
+                margin: 0 0 12px;
+                font-size: clamp(1.4rem, 3vw, 2rem);
+                font-weight: 700;
+                color: #fff;
+            }
+
+            .about-text p {
+                margin: 0 0 16px;
+                font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+                color: rgba(255, 255, 255, 0.88);
+                max-width: 52ch;
+                line-height: 1.7;
+            }
+
+            .about-text ul {
+                padding-left: 18px;
+                margin: 0;
+                color: rgba(255, 255, 255, 0.80);
+                font-size: clamp(0.85rem, 1.3vw, 0.98rem);
+            }
+
+            .about-text ul li {
+                margin-bottom: 6px;
+            }
+
+            /* Stack on small screens */
+            @media (max-width: 640px) {
+                .about-card {
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 24px;
+                }
+
+                .about-card img {
+                    width: 160px;
+                    height: 200px;
+                }
+
+                .about-text ul {
+                    text-align: left;
+                }
+            }
+
             /* ── Main page content ── */
             .page {
                 max-width: 760px;
@@ -105,15 +178,6 @@
             small {
                 color: #777;
                 font-size: 0.8rem;
-            }
-
-            /* Profile image */
-            .avatar {
-                display: block;
-                width: 720px;
-                max-width: 60%;
-                margin: 0 auto 20px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
             }
 
             /* Right-side vertical navbar */
@@ -213,15 +277,32 @@
             </div>
         </div>
 
-        <!-- ── 2. huly_laser_remix section ── -->
-        <div class="video-section">
+        <!-- ── 2. huly_laser_remix – About Me ── -->
+        <div class="video-section" id="about">
             <video src="huly_laser_remix.webm" autoplay loop muted playsinline aria-hidden="true"></video>
-            <div class="video-overlay">
-                <h1>Marawan Yakout</h1>
-                <p class="tagline">
-                    Computer scientist @ University of London &middot; ML Research Intern @ DeepKapha Labs
-                </p>
-                <span class="scroll-hint">↓ scroll</span>
+            <div class="about-overlay">
+                <div class="about-card">
+                    <img
+                        src="assets/picture1.jpg"
+                        alt="Photo of Marawan Yakout"
+                        width="220"
+                        height="280"
+                        loading="lazy"
+                    >
+                    <div class="about-text">
+                        <h2>About Me</h2>
+                        <p>
+                            A foundational researcher pursuing a Computer Science BSc at the University of London,
+                            with a focus on AI, Machine Learning, Data Science, and Deep Learning.
+                            Passionate about research, reproducibility, and high&#8209;quality open&#8209;source implementations.
+                        </p>
+                        <ul>
+                            <li>Deep learning &amp; generative models (e.g., diffusion for sky/cloud understanding)</li>
+                            <li>High&#8209;performance C++ &amp; Python systems for trading and large&#8209;scale experiments</li>
+                            <li>Applied AI research, model evaluation, and educational content</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -236,25 +317,6 @@
 
         <!-- ── Main content ── -->
         <div class="page">
-            <header>
-                <img src="assets\picture1.jpg" alt="Photo of Marawan Yakout" class="avatar">
-            </header>
-
-            <section id="about">
-                <h2>About</h2>
-                <p>
-                    A foundational researcher with undergoing Computer Science BSc - University of London with a focus on AI, Machine Learning, Data Science and DeepLearning. Passionate about research, reproducibility and high‑quality open‑source implementations.
-                </p>
-            </section>
-
-            <section id="focus">
-                <h2>What I work on</h2>
-                <ul>
-                    <li>Deep learning and generative models (e.g., diffusion for sky/cloud understanding).</li>
-                    <li>High‑performance C++ and Python systems for trading and large‑scale experiments.</li>
-                    <li>Applied AI research, model evaluation, and educational content.</li>
-                </ul>
-            </section>
 
             <section id="projects">
                 <h2>Recent Work</h2>
@@ -297,11 +359,6 @@
             <footer>
                 <small>Loading Pages on this Website is Fast, try it out ;)</small>
             </footer>
-        </div>
-
-        <!-- ── 3. components_remix closing section ── -->
-        <div class="video-section">
-            <video src="components_remix.webm" autoplay loop muted playsinline aria-hidden="true"></video>
         </div>
 
     </body>
