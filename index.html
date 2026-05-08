@@ -414,48 +414,34 @@
                 <ul class="oss-list">
 
                     <li class="oss-card">
-                        <div class="oss-card-header">
-                            <strong>
-                                <a href="https://github.com/Gitlawb/openclaude/pull/215" target="_blank" rel="noopener noreferrer">
-                                    fix: OAuth tokens secure storage for Windows &amp; Linux
-                                </a>
-                            </strong>
-                            <span class="oss-badge">Merged &middot; #215</span>
-                        </div>
-                        <p class="oss-repo">Gitlawb/openclaude &nbsp;&mdash;&nbsp; Security</p>
-                        <p>
-                            Identified that OpenClaude stored sensitive OAuth tokens (access token, refresh token, client secret)
-                            in a plaintext <code>~/.claude/.credentials.json</code> file on Linux and Windows.
-                            Implemented native secure storage backends for both platforms: <code>secret-tool</code> via the
-                            Freedesktop Secret Service API on Linux, and the Windows Credential Locker (PasswordVault) via
-                            PowerShell on Windows. A graceful fallback to the original file-based method is retained when the
-                            secure vault is unavailable. Also renamed the misleading
-                            <code>clearServerTokensFromLocalStorage</code> function to
-                            <code>clearServerTokensFromSecureStorage</code> to reduce confusion and false positives in
-                            security scanners.
-                        </p>
-                    </li>
-
-                    <li class="oss-card">
-                        <div class="oss-card-header">
-                            <strong>
-                                <a href="https://github.com/Gitlawb/openclaude/pull/675" target="_blank" rel="noopener noreferrer">
-                                    Fix/MCP exposure v2 TODOs
-                                </a>
-                            </strong>
-                            <span class="oss-badge">Merged &middot; #675</span>
-                        </div>
-                        <p class="oss-repo">Gitlawb/openclaude &nbsp;&mdash;&nbsp; MCP / Tooling</p>
-                        <p>
-                            Resolved a collection of open TODO items in the MCP (Model Context Protocol) entrypoint.
-                            Implemented tool re-exposure, strict JSON schema input validation using Ajv, and structured
-                            output handling including image payloads. Added tests for tool deduplication and
-                            auth-needed server exposure. Prevented registry prefetching when not running in first-party
-                            mode, and disabled experimental API betas by default in the CLI to stop spurious 500 errors.
-                            Cleaned up a previous messy branch by cherry-picking only the core changes onto a fresh
-                            branch, bringing the total diff to a focused 180 insertions.
-                        </p>
-                    </li>
+                    <div class="oss-card-header">
+                        <strong>
+                            <a href="https://github.com/Gitlawb/openclaude/pull/215" target="_blank" rel="noopener noreferrer">
+                                OpenClaude - fix: OAuth tokens secure storage for Windows &amp; Linux
+                            </a>
+                        </strong>
+                        <span class="oss-badge">Merged &middot; #215</span>
+                    </div>
+                    <p class="oss-repo">Gitlawb/openclaude &nbsp;&mdash;&nbsp; Security</p>
+                    <p>
+                        Replaced plaintext OAuth token storage with native secure vault integrations for Linux and Windows, including a graceful file-based fallback and scanner-friendly code refactoring.
+                    </p>
+                </li>
+                
+                <li class="oss-card">
+                    <div class="oss-card-header">
+                        <strong>
+                            <a href="https://github.com/Gitlawb/openclaude/pull/675" target="_blank" rel="noopener noreferrer">
+                                 OpenClaude - Fix/MCP exposure v2 TODOs
+                            </a>
+                        </strong>
+                        <span class="oss-badge">Merged &middot; #675</span>
+                    </div>
+                    <p class="oss-repo">Gitlawb/openclaude &nbsp;&mdash;&nbsp; MCP / Tooling</p>
+                    <p>
+                        Finalized the MCP entrypoint by implementing strict Ajv schema validation, tool re-exposure, and structured outputs, alongside robust test coverage and CLI bug fixes.
+                    </p>
+                </li>
 
                 </ul>
             </section>
