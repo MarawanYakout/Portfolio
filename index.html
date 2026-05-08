@@ -180,6 +180,84 @@
                 font-size: 0.8rem;
             }
 
+            /* ── Open Source contribution cards ── */
+            .oss-list {
+                list-style: none;
+                padding-left: 0;
+                margin: 10px 0 0;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .oss-card {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 14px 16px;
+                background: #fff;
+            }
+
+            .oss-card-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-bottom: 6px;
+            }
+
+            .oss-card-header strong {
+                font-size: 0.95rem;
+            }
+
+            .oss-badge {
+                font-size: 0.72rem;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                padding: 2px 8px;
+                border-radius: 999px;
+                background: #d1fae5;
+                color: #065f46;
+            }
+
+            .oss-repo {
+                font-size: 0.78rem;
+                color: #777;
+                margin-bottom: 6px;
+            }
+
+            .oss-card p {
+                margin: 0;
+                font-size: 0.88rem;
+                color: #333;
+                line-height: 1.55;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background: #050608;
+                    color: #f7f7f7;
+                }
+
+                .oss-card {
+                    background: #111318;
+                    border-color: #252738;
+                }
+
+                .oss-card p {
+                    color: #c8cad4;
+                }
+
+                .oss-repo {
+                    color: #a0a3af;
+                }
+
+                .oss-badge {
+                    background: #064e3b;
+                    color: #6ee7b7;
+                }
+            }
+
             /* Right-side vertical navbar */
             .side-nav {
                 position: fixed;
@@ -217,11 +295,6 @@
             }
 
             @media (prefers-color-scheme: dark) {
-                body {
-                    background: #050608;
-                    color: #f7f7f7;
-                }
-
                 .side-nav {
                     background: #111318;
                     box-shadow: none;
@@ -311,7 +384,7 @@
                 <ul>
                     <li>
                         <strong>SERWED</strong>
-                        <span class="project-tag">Diffusion Model • Satellite Imagery • Conditional Generation</span>
+                        <span class="project-tag">Diffusion Model &bull; Satellite Imagery &bull; Conditional Generation</span>
                         <br>
                         <small>
                             <a href="https://github.com/MarawanYakout/SERWED" target="_blank" rel="noopener noreferrer">
@@ -321,7 +394,7 @@
                         <p>
                             A context-conditioned Denoising Diffusion Probabilistic Model (DDPM) for generating and analyzing satellite cloud imagery.
                             Trained on a NASA dataset containing high-resolution images with associated timestamps, wind-speed annotations, and learned embeddings.
-                            Supports conditional generation (e.g., given wind speed or timestamp), robustness experiments, and rapid prototyping on small 16×16 images with straightforward scaling to larger resolutions.
+                            Supports conditional generation (e.g., given wind speed or timestamp), robustness experiments, and rapid prototyping on small 16&times;16 images with straightforward scaling to larger resolutions.
                         </p>
 
                         <div style="margin-top: 12px; padding: 10px; background-color: #ecfdf5; border-left: 4px solid #10b981; border-radius: 6px; font-size: 0.9em;">
@@ -332,6 +405,58 @@
                             </a>
                         </div>
                     </li>
+                </ul>
+            </section>
+
+            <!-- ── Open Source Contributions ── -->
+            <section id="oss">
+                <h2>Contributions to Open Source</h2>
+                <ul class="oss-list">
+
+                    <li class="oss-card">
+                        <div class="oss-card-header">
+                            <strong>
+                                <a href="https://github.com/Gitlawb/openclaude/pull/215" target="_blank" rel="noopener noreferrer">
+                                    fix: OAuth tokens secure storage for Windows &amp; Linux
+                                </a>
+                            </strong>
+                            <span class="oss-badge">Merged &middot; #215</span>
+                        </div>
+                        <p class="oss-repo">Gitlawb/openclaude &nbsp;&mdash;&nbsp; Security</p>
+                        <p>
+                            Identified that OpenClaude stored sensitive OAuth tokens (access token, refresh token, client secret)
+                            in a plaintext <code>~/.claude/.credentials.json</code> file on Linux and Windows.
+                            Implemented native secure storage backends for both platforms: <code>secret-tool</code> via the
+                            Freedesktop Secret Service API on Linux, and the Windows Credential Locker (PasswordVault) via
+                            PowerShell on Windows. A graceful fallback to the original file-based method is retained when the
+                            secure vault is unavailable. Also renamed the misleading
+                            <code>clearServerTokensFromLocalStorage</code> function to
+                            <code>clearServerTokensFromSecureStorage</code> to reduce confusion and false positives in
+                            security scanners.
+                        </p>
+                    </li>
+
+                    <li class="oss-card">
+                        <div class="oss-card-header">
+                            <strong>
+                                <a href="https://github.com/Gitlawb/openclaude/pull/675" target="_blank" rel="noopener noreferrer">
+                                    Fix/MCP exposure v2 TODOs
+                                </a>
+                            </strong>
+                            <span class="oss-badge">Merged &middot; #675</span>
+                        </div>
+                        <p class="oss-repo">Gitlawb/openclaude &nbsp;&mdash;&nbsp; MCP / Tooling</p>
+                        <p>
+                            Resolved a collection of open TODO items in the MCP (Model Context Protocol) entrypoint.
+                            Implemented tool re-exposure, strict JSON schema input validation using Ajv, and structured
+                            output handling including image payloads. Added tests for tool deduplication and
+                            auth-needed server exposure. Prevented registry prefetching when not running in first-party
+                            mode, and disabled experimental API betas by default in the CLI to stop spurious 500 errors.
+                            Cleaned up a previous messy branch by cherry-picking only the core changes onto a fresh
+                            branch, bringing the total diff to a focused 180 insertions.
+                        </p>
+                    </li>
+
                 </ul>
             </section>
 
