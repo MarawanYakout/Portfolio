@@ -1,0 +1,9 @@
+Font in this folder
+
+vt323.woff2 - VT323. Copyright 2011, The VT323 Project Authors (peter.hull@oikoi.com)
+
+Licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org
+
+The file here is a reduced copy: only the characters this site uses were
+kept, to make it small.

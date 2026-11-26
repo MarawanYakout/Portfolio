@@ -1,1 +1,7 @@
 .worktrees/
+useless/
+.DS_Store
+
+# showcase pictures: kept on this computer, not published yet
+pics/
+assets/showcase/
