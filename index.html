@@ -6,7 +6,7 @@
 <title>Marawan Yakout — Computer Scientist &amp; AI Researcher</title>
 <meta name="description" content="Marawan Yakout — computer scientist and AI/ML researcher at the University of London, and Machine Learning Research Head at LiveAI.">
 <meta name="author" content="Marawan Yakout">
-<meta name="theme-color" content="#05060b">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Marawan Yakout — Computer Scientist &amp; AI Researcher">
 <meta property="og:description" content="Marawan Yakout — computer scientist and AI/ML researcher at the University of London, and Machine Learning Research Head at LiveAI.">
@@ -15,10 +15,38 @@
 <link rel="canonical" href="https://marawan.net/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305060b'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Georgia,serif' font-size='40' fill='%234ef5b6'%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="assets/vt323.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+// Pick the look before the page is drawn, so it never flashes the wrong colours.
+// White by default; "dark" and "animate" are remembered from the visitor's last visit.
+(function () {
+  var d = document.documentElement, theme = 'light', anim = 'off';
+  try { theme = localStorage.getItem('theme') || theme; anim = localStorage.getItem('anim') || anim; } catch (e) {}
+  if (anim === 'on') theme = 'dark'; // the moving space scene only exists in dark
+  d.dataset.theme = theme; d.dataset.anim = anim;
+  if (theme === 'dark') document.querySelector('meta[name="theme-color"]').content = '#05060b';
+})();
+</script>
 <style>
   @font-face{font-family:"VT323";src:url(assets/vt323.woff2) format("woff2");font-display:swap}
 
+  /* light (the default) */
   :root{
+    --bg:#fff;
+    --ink:#1a1d24;
+    --bright:#0b0d12;
+    --dim:#5d6470;
+    --line:#d8dbe2;
+    --accent:#047857;
+    --glow:transparent;
+    --under:rgba(4,120,87,.35);
+    --surface:#eceef2;
+    --gh:#1f2328;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;
+    --pixel:"VT323",var(--mono);
+    color-scheme:light;
+  }
+  /* dark mode, and the animated space backdrop (which is always dark) */
+  :root[data-theme=dark],:root[data-anim=on]{
     --bg:#05060b;
     --ink:#fff;
     --bright:#fff;
@@ -26,10 +54,13 @@
     --line:#2a2d3a;
     --accent:#4ef5b6;
     --glow:rgba(78,245,182,.45);
-    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;
-    --pixel:"VT323",var(--mono);
+    --under:rgba(78,245,182,.45);
+    --surface:#151826;
+    --gh:#e6edf3;
     color-scheme:dark;
   }
+  /* switching looks cross-fades the whole page (browsers with view transitions) */
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.45s}
   *{box-sizing:border-box;margin:0;padding:0}
   html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-padding-top:24px}
   body{
@@ -42,10 +73,21 @@
     padding:0 24px;
   }
   ::selection{background:var(--accent);color:var(--bg)}
-  .wrap{max-width:800px;min-height:100vh;min-height:100svh;margin:0 auto;padding:48px 0 48px;display:flex;flex-direction:column;
-    /* dark halo around every letter, so text stays readable wherever the backdrop is bright */
-    text-shadow:0 0 2px var(--bg),0 0 6px var(--bg),0 0 12px var(--bg),0 0 22px var(--bg)}
+  .wrap{max-width:800px;min-height:100vh;min-height:100svh;margin:0 auto;padding:48px 0 48px;display:flex;flex-direction:column}
+  /* dark halo around every letter, so text stays readable wherever the animated backdrop is bright */
+  [data-anim=on] .wrap{text-shadow:0 0 2px var(--bg),0 0 6px var(--bg),0 0 12px var(--bg),0 0 22px var(--bg)}
   main{flex:1}
+
+  /* ---- Backdrop: plain white by default. Dark mode adds a few still stars.
+     The side doodles show in every look; they hold still unless animations are on.
+     The "animate" switch brings in the full moving space scene, moving doodles and the CRT screen. ---- */
+  .cosmos{display:none}
+  :root:not([data-anim=on]) .fl,:root:not([data-anim=on]) .fl svg{animation:none}
+  /* the doodles are drawn in light colours for a dark sky; on white, flip them to dark ink of the same hues */
+  :root:not([data-theme=dark]):not([data-anim=on]) .floaters{filter:invert(1) hue-rotate(180deg)}
+  [data-theme=dark] .cosmos,[data-anim=on] .cosmos{display:block}
+  :root:not([data-anim=on]) .scene,:root:not([data-anim=on]) .cosmos::after,:root:not([data-anim=on]) body::after{display:none}
+  :root:not([data-anim=on]) .cosmos .stars{animation:none;opacity:.6}
 
   /* ---- CRT screen: scanlines and dark corners, drawn over the backdrop only.
      They sit behind the text and the pictures, which stay clean. ---- */
@@ -159,8 +201,26 @@
   nav .btn:hover{background:var(--bright)}
   nav .btn:hover::after{color:inherit}
 
+  /* ---- Look switches, top right: dark mode and animations ---- */
+  .toggles{position:absolute;top:14px;right:14px;z-index:10;display:flex;gap:8px}
+  .tg{
+    font:inherit;font-size:.8rem;line-height:1;
+    display:inline-flex;align-items:center;gap:7px;
+    padding:7px 11px;
+    color:var(--ink);background:var(--bg);
+    border:1px solid var(--line);border-radius:3px;
+    cursor:pointer;
+    transition:color .15s,border-color .15s,background-color .15s,box-shadow .15s;
+  }
+  .tg svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tg:hover{color:var(--accent);border-color:var(--accent)}
+  .tg[aria-pressed=true]{color:var(--bg);background:var(--accent);border-color:var(--accent);box-shadow:0 0 14px var(--glow)}
+  .tg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* on wide screens the side margins are empty, so the switches can follow the page as it scrolls */
+  @media (min-width:1240px){.toggles{position:fixed;top:18px;right:18px}}
+
   /* ---- Links: inverse video on hover, like a selected line ---- */
-  a{color:var(--accent);text-decoration:underline;text-decoration-color:rgba(78,245,182,.45);text-underline-offset:3px}
+  a{color:var(--accent);text-decoration:underline;text-decoration-color:var(--under);text-underline-offset:3px}
   a:hover,nav a:hover{background:var(--accent);color:var(--bg);text-decoration:none;text-shadow:none}
   nav a:hover::before,nav a:hover::after{color:var(--bg)}
   a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -188,12 +248,10 @@
   .about picture{flex-shrink:0;line-height:0}
   .portrait{
     display:block;
-    width:160px;
-    height:200px;
+    width:200px;
+    height:250px;
     object-fit:cover;
-    border:1px solid var(--accent);
-    box-shadow:0 0 18px rgba(78,245,182,.28);
-    background:#151826;
+    background:var(--surface);
   }
   .lead{flex:1}
   .note{margin-top:22px;color:var(--dim);font-size:.9em}
@@ -213,7 +271,7 @@
     height:auto;
     aspect-ratio:20/13;
     object-fit:cover;
-    background:#151826;
+    background:var(--surface);
     border:1px solid var(--line);
     pointer-events:none;
   }
@@ -293,7 +351,10 @@
     nav{gap:10px 9px;font-size:.76rem}
     .reel{--w:min(82vw,460px);--gap:14px}
     .about{flex-direction:column}
-    .portrait{width:140px;height:175px}
+    .portrait{width:168px;height:210px}
+    .toggles{top:12px;right:12px;gap:6px}
+    .tg{padding:6px}
+    .tg span{display:none}
     .item-head,.has-mark .item-head{flex-direction:column;align-items:flex-start}
     .has-mark .item-date{margin-left:36px}
     .skills{grid-template-columns:1fr;gap:8px}
@@ -308,12 +369,12 @@
   }
 
   @media print{
+    :root,:root[data-theme=dark],:root[data-anim=on]{--bg:#fff;--ink:#000;--bright:#000;--dim:#333;--line:#ccc;--glow:transparent;--gh:#1f2328;color-scheme:light}
     html{background:#fff}
     body{color:#000;padding:0}
-    .wrap{padding:0;min-height:0}
-    nav,header::before,.cosmos,.floaters,body::after,.name::after{display:none}
+    .wrap{padding:0;min-height:0;text-shadow:none!important}
+    nav,header::before,.toggles,.cosmos,.floaters,body::after,.name::after{display:none!important}
     .name,.label,.role,.item-title,.item-org,.item-date,.skills h3,.note,strong,a{color:#000;text-shadow:none}
-    .portrait{box-shadow:none}
   }
 </style>
 </head>
@@ -353,6 +414,10 @@
   <div class="fl l" style="top:87%;--w:210px;--x:28px;--r:-2deg;--d:-50px;--t:9.4s"><svg viewBox="0 0 236 40"><use href="assets/cosmos.svg#fig-bayes"/></svg></div>
   <div class="fl r" style="top:90%;--w:130px;--x:74px;--r:5deg;--d:60px;--t:7.4s"><svg viewBox="0 0 150 114"><use href="assets/cosmos.svg#fig-kernel"/></svg></div>
 </div>
+<div class="toggles" role="group" aria-label="Page look">
+  <button type="button" class="tg" id="tg-theme" aria-pressed="false" aria-label="Dark mode" title="Dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.1A8.5 8.5 0 1 1 9.9 3.5a6.6 6.6 0 0 0 10.6 10.6z"/></svg><span>Dark</span></button>
+  <button type="button" class="tg" id="tg-anim" aria-pressed="false" aria-label="Animated background" title="Animated background"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3.5l1.6 4.9 4.9 1.6-4.9 1.6L10 16.5l-1.6-4.9L3.5 10l4.9-1.6z"/><path d="M18 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span>Animate</span></button>
+</div>
 <div class="wrap">
 
   <header>
@@ -373,7 +438,7 @@
       <div class="about">
         <picture>
           <source srcset="assets/portrait.avif" type="image/avif">
-          <img class="portrait" src="assets/portrait.jpg" width="160" height="200" alt="Portrait of Marawan Yakout" fetchpriority="high" decoding="async">
+          <img class="portrait" src="assets/portrait.jpg" width="200" height="250" alt="Portrait of Marawan Yakout" fetchpriority="high" decoding="async">
         </picture>
         <p class="lead">
           A foundational researcher pursuing a Computer Science BSc at the University of London,
@@ -430,7 +495,7 @@
         <h3>Languages</h3>
         <ul class="stack"><li><svg role="img" aria-label="Python" style="--c:#568bb8"><title>Python</title><use href="assets/icons.svg#i-python"/></svg></li><li><svg role="img" aria-label="C" style="--c:#a8b9cc"><title>C</title><use href="assets/icons.svg#i-c"/></svg></li><li><svg role="img" aria-label="C++" style="--c:#4887b8"><title>C++</title><use href="assets/icons.svg#i-cplusplus"/></svg></li><li><svg role="img" aria-label="R" style="--c:#4884cc"><title>R</title><use href="assets/icons.svg#i-r"/></svg></li><li><svg role="img" aria-label="Java" style="--c:#f89820"><title>Java</title><use href="assets/icons.svg#i-java"/></svg></li><li><svg role="img" aria-label="JavaScript" style="--c:#f7df1e"><title>JavaScript</title><use href="assets/icons.svg#i-javascript"/></svg></li><li><svg role="img" aria-label="TypeScript" style="--c:#4183cb"><title>TypeScript</title><use href="assets/icons.svg#i-typescript"/></svg></li><li><svg role="img" aria-label="HTML5" style="--c:#e34f26"><title>HTML5</title><use href="assets/icons.svg#i-html5"/></svg></li><li><svg role="img" aria-label="CSS3" style="--c:#3987c1"><title>CSS3</title><use href="assets/icons.svg#i-css3"/></svg></li><li><svg role="img" aria-label="MySQL" style="--c:#5384a9"><title>MySQL</title><use href="assets/icons.svg#i-mysql"/></svg></li><li><svg role="img" aria-label="C#" style="--c:#aa6aa6"><title>C#</title><use href="assets/icons.svg#i-csharp"/></svg></li><li><svg role="img" aria-label="Bash" style="--c:#4eaa25"><title>Bash</title><use href="assets/icons.svg#i-gnubash"/></svg></li><li><svg role="img" aria-label="MATLAB" style="--c:#e16737"><title>MATLAB</title><use href="assets/icons.svg#i-matlab"/></svg></li></ul>
         <h3>Frameworks &amp; Tools</h3>
-        <ul class="stack"><li><svg role="img" aria-label="TensorFlow" style="--c:#ff6f00"><title>TensorFlow</title><use href="assets/icons.svg#i-tensorflow"/></svg></li><li><svg role="img" aria-label="scikit-learn" style="--c:#f7931e"><title>scikit-learn</title><use href="assets/icons.svg#i-scikitlearn"/></svg></li><li><svg role="img" aria-label="Pandas" style="--c:#867da9"><title>Pandas</title><use href="assets/icons.svg#i-pandas"/></svg></li><li><svg role="img" aria-label="Jupyter" style="--c:#f37626"><title>Jupyter</title><use href="assets/icons.svg#i-jupyter"/></svg></li><li><svg role="img" aria-label="Git" style="--c:#f05032"><title>Git</title><use href="assets/icons.svg#i-git"/></svg></li><li><svg role="img" aria-label="GitHub" style="--c:#e6edf3"><title>GitHub</title><use href="assets/icons.svg#i-github"/></svg></li><li><svg role="img" aria-label="Wireshark" style="--c:#3a8eb4"><title>Wireshark</title><use href="assets/icons.svg#i-wireshark"/></svg></li></ul>
+        <ul class="stack"><li><svg role="img" aria-label="TensorFlow" style="--c:#ff6f00"><title>TensorFlow</title><use href="assets/icons.svg#i-tensorflow"/></svg></li><li><svg role="img" aria-label="scikit-learn" style="--c:#f7931e"><title>scikit-learn</title><use href="assets/icons.svg#i-scikitlearn"/></svg></li><li><svg role="img" aria-label="Pandas" style="--c:#867da9"><title>Pandas</title><use href="assets/icons.svg#i-pandas"/></svg></li><li><svg role="img" aria-label="Jupyter" style="--c:#f37626"><title>Jupyter</title><use href="assets/icons.svg#i-jupyter"/></svg></li><li><svg role="img" aria-label="Git" style="--c:#f05032"><title>Git</title><use href="assets/icons.svg#i-git"/></svg></li><li><svg role="img" aria-label="GitHub" style="--c:var(--gh)"><title>GitHub</title><use href="assets/icons.svg#i-github"/></svg></li><li><svg role="img" aria-label="Wireshark" style="--c:#3a8eb4"><title>Wireshark</title><use href="assets/icons.svg#i-wireshark"/></svg></li></ul>
         <h3>Cloud &amp; DevOps</h3>
         <ul class="stack"><li><svg role="img" aria-label="AWS" style="--c:#ff9900"><title>AWS</title><use href="assets/icons.svg#i-amazonwebservices"/></svg></li><li><svg role="img" aria-label="Google Cloud" style="--c:#4285f4"><title>Google Cloud</title><use href="assets/icons.svg#i-googlecloud"/></svg></li><li><svg role="img" aria-label="Azure" style="--c:#1483d7"><title>Azure</title><use href="assets/icons.svg#i-microsoftazure"/></svg></li><li><svg role="img" aria-label="Docker" style="--c:#2496ed"><title>Docker</title><use href="assets/icons.svg#i-docker"/></svg></li><li><svg role="img" aria-label="Kubernetes" style="--c:#5183e9"><title>Kubernetes</title><use href="assets/icons.svg#i-kubernetes"/></svg></li><li><svg role="img" aria-label="Linux" style="--c:#fcc624"><title>Linux</title><use href="assets/icons.svg#i-linux"/></svg></li><li><svg role="img" aria-label="Heroku" style="--c:#9770c5"><title>Heroku</title><use href="assets/icons.svg#i-heroku"/></svg></li><li><svg role="img" aria-label="Jenkins" style="--c:#d65849"><title>Jenkins</title><use href="assets/icons.svg#i-jenkins"/></svg></li><li><svg role="img" aria-label="Travis CI" style="--c:#3eaaaf"><title>Travis CI</title><use href="assets/icons.svg#i-travisci"/></svg></li><li><svg role="img" aria-label="CircleCI" style="--c:#858585"><title>CircleCI</title><use href="assets/icons.svg#i-circleci"/></svg></li></ul>
         <h3>Databases</h3>
@@ -461,7 +526,7 @@
 
       <div class="item has-mark">
         <div class="item-head">
-          <h3 class="item-title"><svg class="mark" aria-hidden="true" style="--c:#e6edf3"><use href="assets/icons.svg#i-github"/></svg><span><a href="https://github.com/Gitlawb/openclaude/pull/215" target="_blank" rel="noopener">OpenClaude — <span class="item-org">OAuth Secure Storage</span></a></span></h3>
+          <h3 class="item-title"><svg class="mark" aria-hidden="true" style="--c:var(--gh)"><use href="assets/icons.svg#i-github"/></svg><span><a href="https://github.com/Gitlawb/openclaude/pull/215" target="_blank" rel="noopener">OpenClaude — <span class="item-org">OAuth Secure Storage</span></a></span></h3>
           <span class="item-date"><a href="https://github.com/Gitlawb/openclaude/pull/215" target="_blank" rel="noopener">Merged #215 →</a></span>
         </div>
         <p>Replaced plaintext OAuth token storage with native secure vault integrations for Linux and Windows, including a graceful file-based fallback.</p>
@@ -469,7 +534,7 @@
 
       <div class="item has-mark">
         <div class="item-head">
-          <h3 class="item-title"><svg class="mark" aria-hidden="true" style="--c:#e6edf3"><use href="assets/icons.svg#i-github"/></svg><span><a href="https://github.com/Gitlawb/openclaude/pull/675" target="_blank" rel="noopener">OpenClaude — <span class="item-org">MCP Exposure v2</span></a></span></h3>
+          <h3 class="item-title"><svg class="mark" aria-hidden="true" style="--c:var(--gh)"><use href="assets/icons.svg#i-github"/></svg><span><a href="https://github.com/Gitlawb/openclaude/pull/675" target="_blank" rel="noopener">OpenClaude — <span class="item-org">MCP Exposure v2</span></a></span></h3>
           <span class="item-date"><a href="https://github.com/Gitlawb/openclaude/pull/675" target="_blank" rel="noopener">Merged #675 →</a></span>
         </div>
         <p>Implemented strict Ajv schema validation, tool re-exposure, and structured outputs for the Model Context Protocol (MCP) entrypoint.</p>
@@ -635,5 +700,35 @@
 })();
 </script>
      END OF SHOWCASE SCRIPT -->
+<script>
+// Look switches. "Dark" flips white <-> dark with stars. "Animate" brings in the moving space scene,
+// which is dark only: turning it on also turns dark on, and going back to light turns it off.
+(function () {
+  var d = document.documentElement,
+      dark = document.getElementById('tg-theme'),
+      anim = document.getElementById('tg-anim'),
+      meta = document.querySelector('meta[name="theme-color"]'),
+      calm = matchMedia('(prefers-reduced-motion: reduce)');
+  function sync() {
+    dark.setAttribute('aria-pressed', d.dataset.theme === 'dark');
+    anim.setAttribute('aria-pressed', d.dataset.anim === 'on');
+    meta.content = d.dataset.theme === 'dark' ? '#05060b' : '#ffffff';
+  }
+  function set(theme, on) {
+    function apply() { d.dataset.theme = theme; d.dataset.anim = on ? 'on' : 'off'; sync(); }
+    if (document.startViewTransition && !calm.matches) document.startViewTransition(apply); else apply();
+    try { localStorage.setItem('theme', theme); localStorage.setItem('anim', on ? 'on' : 'off'); } catch (e) {}
+  }
+  dark.addEventListener('click', function () {
+    var toDark = d.dataset.theme !== 'dark';
+    set(toDark ? 'dark' : 'light', toDark && d.dataset.anim === 'on');
+  });
+  anim.addEventListener('click', function () {
+    var on = d.dataset.anim !== 'on';
+    set(on ? 'dark' : d.dataset.theme, on);
+  });
+  sync();
+})();
+</script>
 </body>
 </html>
